@@ -53,7 +53,7 @@ class StatusNetWidget extends WP_Widget {
         $instance['title'] = strip_tags($new_instance['title']);
         $instance['merged'] = strip_tags($new_instance['merged']);
         $instance['source_list'] = strip_tags($new_instance['source_list']);
-        if (is_int($new_instance['max_items'])) $instance['max_items'] = $new_instance['max_items'];
+        if (ctype_digit($new_instance['max_items'])) $instance['max_items'] = $new_instance['max_items'];
         else $instance['max_items'] = 10;
         return $instance;
     }
