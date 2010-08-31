@@ -119,7 +119,7 @@ class StatusNetWidget extends WP_Widget {
             $rss_items = $feed->get_items(0, $max_items_in_feed); 
         }
 
-        echo '<ul>';
+        echo '<ul class="statusnet">';
 
         if ( ! $max_items_in_feed ) {
             echo '<li>No public messages.</li>';
@@ -145,7 +145,7 @@ class StatusNetWidget extends WP_Widget {
             $i = 0;
             foreach ( $rss_items as $message ) {
                 if ($i < $max_items) {
-                    echo '<li>'.$this->prepare_message($message).'</li>';
+                    echo '<li class="statusnet-item">'.$this->prepare_message($message).'</li>';
                     $i++;
                 }
             }
@@ -180,5 +180,20 @@ class StatusNetWidget extends WP_Widget {
 }
 
 add_action('widgets_init', create_function('', 'return register_widget("StatusNetWidget");'));
+
+add_action('wp_print_styles', 'add_statusnet_stylesheet');
+
+/*
+ * Enqueue style-file, if it exists.
+ */
+
+function add_statusnet_stylesheet() {
+    $statusnet_style_url  = WP_PLUGIN_URL . '/wp-statusnet-widget/statusnet-widget.css';
+    $statusnet_style_file = WP_PLUGIN_DIR . '/wp-statusnet-widget/statusnet-widget.css';
+    if ( file_exists($statusnet_style_file) ) {
+        wp_register_style('statusnet-widget-style', $statusnet_style_url);
+        wp_enqueue_style( 'statusnet-widget-style');
+    }
+}
 
 ?>
