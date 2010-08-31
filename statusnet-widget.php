@@ -55,16 +55,19 @@ class StatusNetWidget extends WP_Widget {
         $instance['source_list'] = strip_tags($new_instance['source_list']);
         if (ctype_digit($new_instance['max_items'])) $instance['max_items'] = $new_instance['max_items'];
         else $instance['max_items'] = 10;
+        if (ctype_digit($new_instance['cache_lifetime'])) $instance['cache_lifetime'] = $new_instance['cache_lifetime'];
+        else $instance['cache_lifetime'] = 30;
         return $instance;
     }
 
     /** @see WP_Widget::form */
     function form($instance) {              
-        $instance = wp_parse_args( (array) $instance, array( 'merged' => '1', 'title' => '', 'source_list' => '', 'max_items' => 10) );
+        $instance = wp_parse_args( (array) $instance, array( 'merged' => '1', 'title' => '', 'source_list' => '', 'max_items' => 10, 'cache_lifetime' => 30) );
         $title = esc_attr($instance['title']);
         $merged = esc_attr($instance['merged']);
         $max_items = esc_attr($instance['max_items']);
         $source_list = esc_attr($instance['source_list']);
+        $cache_lifetime = esc_attr($instance['cache_lifetime']);
         ?>
             <p>
                <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?>
@@ -82,6 +85,11 @@ class StatusNetWidget extends WP_Widget {
                </label>
             </p>
             <p>
+               <label for="<?php echo $this->get_field_id('cache_lifetime'); ?>"><?php _e('Cache Lifetime (minutes):'); ?>
+                 <input class="widefat" id="<?php echo $this->get_field_id('cache_lifetime'); ?>" name="<?php echo $this->get_field_name('cache_lifetime'); ?>" type="text" value="<?php echo $cache_lifetime; ?>" />
+               </label>
+            </p>
+            <p>
                <label for="<?php echo $this->get_field_id('source_list'); ?>"><?php _e('Source List:'); ?>
                  <textarea class="widefat" id="<?php echo $this->get_field_id('source_list'); ?>" name="<?php echo $this->get_field_name('source_list'); ?>"><?php echo $source_list; ?></textarea>
                </label>
@@ -95,6 +103,7 @@ class StatusNetWidget extends WP_Widget {
         $merged = esc_attr($instance['merged']);
         $max_items = esc_attr($instance['max_items']);
         $source_list = esc_attr($instance['source_list']);
+        $cache_lifetime = esc_attr($instance['cache_lifetime']);
 
         $source_list = explode("\n", $source_list);
         $all_messages = array();
@@ -110,7 +119,9 @@ class StatusNetWidget extends WP_Widget {
               $source = 'http://twitter.com/statuses/user_timeline/'.str_replace('/', '', str_ireplace('http://twitter.com/', '', $source)).'.rss';
           $feeds[] = $source;
         }
+        add_filter('wp_feed_cache_transient_lifetime', array(&$this, 'get_cache_lifetime'));
         $feed = fetch_feed($feeds);
+        remove_filter('wp_feed_cache_transient_lifetime', array(&$this, 'get_cache_lifetime'));
         $max_items_in_feed = 0;
         if (!is_wp_error( $rss ) ) { // Checks that the object is created correctly 
             // Figure out how many total items there are, but limit it to $max_items*count($feeds). 
@@ -175,6 +186,15 @@ class StatusNetWidget extends WP_Widget {
         $final .= '</abbr></span>';
 
         return $final;
+    }
+
+    function get_cache_lifetime($a) {
+        $s = $this->get_settings();
+        if (array_key_exists($this->number, $s)) {
+            $s = $s[$this->number];
+        }
+        $cache_lifetime = $s['cache_lifetime'];
+        return 60*(int)$cache_lifetime;
     }
 
 }
