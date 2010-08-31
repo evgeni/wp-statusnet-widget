@@ -169,6 +169,13 @@ class StatusNetWidget extends WP_Widget {
         $m = $message->get_title();
         $m = substr($m, strpos($m, ':')+2);
         $link_base = join('/', array_slice(explode('/', $message->get_feed()->get_link()), 0, -1));
+        if ($link_base == 'http://twitter.com') {
+            $search_base='http://search.twitter.com/search?q=%23';
+            $group_base='';
+        } else {
+            $search_base=$link_base.'/tag/';
+            $group_base=$link_base.'/group/';
+        }
 
         $time = $message->get_date('U');
         if ((abs(time() - $time)) < 86400) {
@@ -179,6 +186,8 @@ class StatusNetWidget extends WP_Widget {
 
         $m = preg_replace('/(http:\/\/[\S]+)/', '<a href="\1">\1</a>', $m);
         $m = preg_replace('/(^|[^\w\d]+)@([\w\d_-]+)/', '\1<a href="'.$link_base.'/\2">@\2</a>', $m);
+        $m = preg_replace('/(^|[^\w\d]+)#([^\s.,!?]+)/', '\1<a href="'.$search_base.'\2">#\2</a>', $m);
+        if ($group_base) $m = preg_replace('/(^|[^\w\d]+)!([^\s.,!?]+)/', '\1<a href="'.$group_base.'\2">!\2</a>', $m);
 
         $final = $m;
         $final .= ' <span class="statusnet-timestamp"><abbr title="'.date(__('Y/m/d H:i:s'), $time).'">';
