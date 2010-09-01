@@ -5,14 +5,18 @@ Requires at least: 2.8
 Tested up to: 3.0.1
 Stable tag: trunk
 
-StatusNet Widget provides a widget to pull your status from StatusNet installations like identi.ca. Multiple sources are supported, so is Twitter.
+StatusNet Widget provides a widget to pull your status from StatusNet
+installations like identi.ca. Multiple sources are supported, so is Twitter.
 
 == Description ==
 
-This is the long description.  No limit, and you can use Markdown (as well as in the following sections).
+This widget aims to provide an easy integration of your StatusNet (identi.ca)
+and Twitter timelines into your WordPress.
+You can provide multiple sources (= links to your profiles at identi.ca, Twitter
+or your own StatusNet installation), which will get fetched, merged (if you want
+it to do so, like when you are posting the same content to Twitter AND identi.ca)
+and displayed in your sidebar (with #hashtag, !group and @people links).
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
 
 == Installation ==
 
