@@ -1,5 +1,6 @@
 === StatusNet Widget ===
 Contributors: zhenech
+Donate link: https://flattr.com/thing/57411/StatusNet-Widget-for-WordPress
 Tags: twitter, identica, statusnet, widget
 Requires at least: 2.8
 Tested up to: 3.0.1
