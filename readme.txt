@@ -26,7 +26,7 @@ and displayed in your sidebar (with #hashtag, !group and @people links).
 1. Add the Widget in the 'Widgets' menu in Wordpress
    * 'Merge Mode' means duplicate statuses will be ignored
    * 'Source List' should contain one source per line
-     (where source is something like http://identi.ca/evgeni or http://twiter.com/zhenech)
+     (where source is something like http://identi.ca/evgeni or http://twitter.com/zhenech)
 
 == Changelog ==
 
