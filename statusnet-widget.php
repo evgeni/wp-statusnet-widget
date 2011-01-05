@@ -112,12 +112,12 @@ class StatusNetWidget extends WP_Widget {
         foreach($source_list as $key=>$source) {
           $orig_source = $source;
           $source = trim($source);
-          $pos = stripos($source, 'http://twitter.com/');
-          if ($pos === FALSE)
-              $source = $source.'/rss';
+          if(stripos($source, 'http://twitter.com/') !== false)
+              $feeds[] = 'http://twitter.com/statuses/user_timeline/'.str_replace('/', '', str_ireplace('http://twitter.com/', '', $source)).'.rss';
+          else if(stripos($source, 'http://www.ohloh.net/') !== false)
+              $feeds[] = $source . '/messages.rss';
           else
-              $source = 'http://twitter.com/statuses/user_timeline/'.str_replace('/', '', str_ireplace('http://twitter.com/', '', $source)).'.rss';
-          $feeds[] = $source;
+              $feeds[] = $source.'/rss';
         }
         add_filter('wp_feed_cache_transient_lifetime', array(&$this, 'get_cache_lifetime'));
         $feed = fetch_feed($feeds);
@@ -168,10 +168,14 @@ class StatusNetWidget extends WP_Widget {
     function prepare_message($message) {
         $m = $message->get_title();
         $m = substr($m, strpos($m, ':')+2);
-        $link_base = join('/', array_slice(explode('/', $message->get_feed()->get_link()), 0, -1));
+        $link_base = preg_replace('|(http://[^/]*)/.*|', '$1', $message->get_feed()->get_link());
         if ($link_base == 'http://twitter.com') {
             $search_base='http://search.twitter.com/search?q=%23';
             $group_base='';
+        } else if ($link_base == 'http://www.ohloh.net') {
+            $search_base='http://www.ohloh.net/p/';
+            $group_base='';
+            $m = $message->get_title();
         } else {
             $search_base=$link_base.'/tag/';
             $group_base=$link_base.'/group/';
