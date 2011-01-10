@@ -7,6 +7,7 @@ Version: 0.1
 Author: Evgeni Golov
 Author URI: http://www.die-welt.net
 License: GPL2
+Text Domain: statusnet-widget
 */
 
 /*  Copyright 2010 Evgeni Golov <sargentd@die-welt.net>
@@ -213,7 +214,8 @@ class StatusNetWidget extends WP_Widget {
 }
 
 add_action('widgets_init', create_function('', 'return register_widget("StatusNetWidget");'));
-
+$plugin_dir = basename(dirname(__FILE__));
+load_plugin_textdomain( 'statusnet-widget', null, $plugin_dir );
 add_action('wp_print_styles', 'add_statusnet_stylesheet');
 
 /*
