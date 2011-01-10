@@ -178,7 +178,7 @@ class StatusNetWidget extends WP_Widget {
         } else if ($link_base == 'http://www.ohloh.net') {
             $search_base='http://www.ohloh.net/p/';
             $group_base='';
-            $user_base='http://www.ohloh.net/accounts/';
+            $user_base='http://www.ohloh.net/accounts';
             $m = $message->get_title();
         } else {
             $search_base=$link_base.'/tag/';
