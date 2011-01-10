@@ -134,7 +134,7 @@ class StatusNetWidget extends WP_Widget {
         echo '<ul class="statusnet">';
 
         if ( ! $max_items_in_feed ) {
-            echo '<li>No public messages.</li>';
+            echo '<li>'.__('No public messages.').'</li>';
         } else {
             if ($merged) {
                 foreach ( $rss_items as $msg ) {
