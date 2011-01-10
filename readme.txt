@@ -3,8 +3,8 @@ Contributors: zhenech
 Donate link: https://flattr.com/thing/57411/StatusNet-Widget-for-WordPress
 Tags: twitter, identica, statusnet, widget
 Requires at least: 2.8
-Tested up to: 3.0.1
-Stable tag: trunk
+Tested up to: 3.0.4
+Stable tag: 0.1
 
 StatusNet Widget provides a widget to pull your status from StatusNet
 installations like identi.ca. Multiple sources are supported, so is Twitter.
@@ -29,6 +29,9 @@ and displayed in your sidebar (with #hashtag, !group and @people links).
      (where source is something like http://identi.ca/evgeni or http://twitter.com/zhenech)
 
 == Changelog ==
+
+= 0.2 =
+* Ohloh support by Michal Hrusecky <Michal@Hrusecky.net>
 
 = 0.1 =
 * First public release.
