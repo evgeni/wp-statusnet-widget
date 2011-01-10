@@ -174,13 +174,16 @@ class StatusNetWidget extends WP_Widget {
         if ($link_base == 'http://twitter.com') {
             $search_base='http://search.twitter.com/search?q=%23';
             $group_base='';
+            $user_base=$link_base;
         } else if ($link_base == 'http://www.ohloh.net') {
             $search_base='http://www.ohloh.net/p/';
             $group_base='';
+            $user_base='http://www.ohloh.net/accounts/';
             $m = $message->get_title();
         } else {
             $search_base=$link_base.'/tag/';
             $group_base=$link_base.'/group/';
+            $user_base=$link_base;
         }
 
         $time = $message->get_date('U');
@@ -191,7 +194,7 @@ class StatusNetWidget extends WP_Widget {
         }
 
         $m = preg_replace('/(http:\/\/[\S]+)/', '<a href="\1">\1</a>', $m);
-        $m = preg_replace('/(^|[^\w\d]+)@([\w\d_-]+)/', '\1<a href="'.$link_base.'/\2">@\2</a>', $m);
+        $m = preg_replace('/(^|[^\w\d]+)@([\w\d_-]+)/', '\1<a href="'.$user_base.'/\2">@\2</a>', $m);
         $m = preg_replace('/(^|[^\w\d]+)#([^\s.,!?]+)/', '\1<a href="'.$search_base.'\2">#\2</a>', $m);
         if ($group_base) $m = preg_replace('/(^|[^\w\d]+)!([^\s.,!?]+)/', '\1<a href="'.$group_base.'\2">!\2</a>', $m);
 
