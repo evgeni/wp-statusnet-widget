@@ -71,27 +71,27 @@ class StatusNetWidget extends WP_Widget {
         $cache_lifetime = esc_attr($instance['cache_lifetime']);
         ?>
             <p>
-               <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:'); ?>
+               <label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title:', 'statusnet-widget'); ?>
                  <input class="widefat" id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
                </label>
             </p>
             <p>
-               <label for="<?php echo $this->get_field_id('merged'); ?>"><?php _e('Merge Mode:'); ?>
+               <label for="<?php echo $this->get_field_id('merged'); ?>"><?php _e('Merge Mode:', 'statusnet-widget'); ?>
                  <input class="widefat" id="<?php echo $this->get_field_id('merged'); ?>" name="<?php echo $this->get_field_name('merged'); ?>" type="checkbox" value="1" <?php checked('1', $merged); ?> />
                </label>
             </p>
             <p>
-               <label for="<?php echo $this->get_field_id('max_items'); ?>"><?php _e('Max Items:'); ?>
+               <label for="<?php echo $this->get_field_id('max_items'); ?>"><?php _e('Max Items:', 'statusnet-widget'); ?>
                  <input class="widefat" id="<?php echo $this->get_field_id('max_items'); ?>" name="<?php echo $this->get_field_name('max_items'); ?>" type="text" value="<?php echo $max_items; ?>" />
                </label>
             </p>
             <p>
-               <label for="<?php echo $this->get_field_id('cache_lifetime'); ?>"><?php _e('Cache Lifetime (minutes):'); ?>
+               <label for="<?php echo $this->get_field_id('cache_lifetime'); ?>"><?php _e('Cache Lifetime (minutes):', 'statusnet-widget'); ?>
                  <input class="widefat" id="<?php echo $this->get_field_id('cache_lifetime'); ?>" name="<?php echo $this->get_field_name('cache_lifetime'); ?>" type="text" value="<?php echo $cache_lifetime; ?>" />
                </label>
             </p>
             <p>
-               <label for="<?php echo $this->get_field_id('source_list'); ?>"><?php _e('Source List:'); ?>
+               <label for="<?php echo $this->get_field_id('source_list'); ?>"><?php _e('Source List:', 'statusnet-widget'); ?>
                  <textarea class="widefat" id="<?php echo $this->get_field_id('source_list'); ?>" name="<?php echo $this->get_field_name('source_list'); ?>"><?php echo $source_list; ?></textarea>
                </label>
             </p>
@@ -134,7 +134,7 @@ class StatusNetWidget extends WP_Widget {
         echo '<ul class="statusnet">';
 
         if ( ! $max_items_in_feed ) {
-            echo '<li>'.__('No public messages.').'</li>';
+            echo '<li>'.__('No public messages.', 'statusnet-widget').'</li>';
         } else {
             if ($merged) {
                 foreach ( $rss_items as $msg ) {
@@ -184,9 +184,9 @@ class StatusNetWidget extends WP_Widget {
 
         $time = $message->get_date('U');
         if ((abs(time() - $time)) < 86400) {
-            $h_time = sprintf( __('%s ago'), human_time_diff( $time ) );
+            $h_time = sprintf( __('%s ago', 'statusnet-widget'), human_time_diff( $time ) );
         } else {
-            $h_time = date(__('Y/m/d'), $time);
+            $h_time = date(__('Y/m/d', 'statusnet-widget'), $time);
         }
 
         $m = preg_replace('/(http:\/\/[\S]+)/', '<a href="\1">\1</a>', $m);
@@ -195,7 +195,7 @@ class StatusNetWidget extends WP_Widget {
         if ($group_base) $m = preg_replace('/(^|[^\w\d]+)!([^\s.,!?]+)/', '\1<a href="'.$group_base.'\2">!\2</a>', $m);
 
         $final = $m;
-        $final .= ' <span class="statusnet-timestamp"><abbr title="'.date(__('Y/m/d H:i:s'), $time).'">';
+        $final .= ' <span class="statusnet-timestamp"><abbr title="'.date(__('Y/m/d H:i:s', 'statusnet-widget'), $time).'">';
         $final .= '<a href="'.$message->get_permalink().'">'.$h_time.'</a>';
         $final .= '</abbr></span>';
 
