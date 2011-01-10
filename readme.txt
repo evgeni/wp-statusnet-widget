@@ -7,12 +7,13 @@ Tested up to: 3.0.4
 Stable tag: 0.1
 
 StatusNet Widget provides a widget to pull your status from StatusNet
-installations like identi.ca. Multiple sources are supported, so is Twitter.
+installations like identi.ca. Multiple sources are supported, so is Twitter
+and Ohloh (even if they are not StatusNet instances).
 
 == Description ==
 
 This widget aims to provide an easy integration of your StatusNet (identi.ca)
-and Twitter timelines into your WordPress.
+Twitter and Ohloh timelines into your WordPress.
 You can provide multiple sources (= links to your profiles at identi.ca, Twitter
 or your own StatusNet installation), which will get fetched, merged (if you want
 it to do so, like when you are posting the same content to Twitter AND identi.ca)
@@ -32,6 +33,7 @@ and displayed in your sidebar (with #hashtag, !group and @people links).
 
 = 0.2 =
 * Ohloh support by Michal Hrusecky <Michal@Hrusecky.net>
+* Initial i18n support and German translation.
 
 = 0.1 =
 * First public release.
