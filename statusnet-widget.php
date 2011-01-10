@@ -14,7 +14,7 @@ Domain Path: /languages
 /*  Copyright 2010 Evgeni Golov <sargentd@die-welt.net>
 
     This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License, version 2, as 
+    it under the terms of the GNU General Public License, version 2, as
     published by the Free Software Foundation.
 
     This program is distributed in the hope that it will be useful,
@@ -33,11 +33,11 @@ Domain Path: /languages
 class StatusNetWidget extends WP_Widget {
     /** constructor */
     function StatusNetWidget() {
-        parent::WP_Widget(false, $name = 'StatusNetWidget');    
+        parent::WP_Widget(false, $name = 'StatusNetWidget');
     }
 
     /** @see WP_Widget::widget */
-    function widget($args, $instance) {     
+    function widget($args, $instance) {
         extract( $args );
         $title = apply_filters('widget_title', $instance['title']);
         ?>
@@ -50,7 +50,7 @@ class StatusNetWidget extends WP_Widget {
     }
 
     /** @see WP_Widget::update */
-    function update($new_instance, $old_instance) {             
+    function update($new_instance, $old_instance) {
         $instance = $old_instance;
         $instance['title'] = strip_tags($new_instance['title']);
         $instance['merged'] = strip_tags($new_instance['merged']);
@@ -63,7 +63,7 @@ class StatusNetWidget extends WP_Widget {
     }
 
     /** @see WP_Widget::form */
-    function form($instance) {              
+    function form($instance) {
         $instance = wp_parse_args( (array) $instance, array( 'merged' => '1', 'title' => '', 'source_list' => '', 'max_items' => 10, 'cache_lifetime' => 30) );
         $title = esc_attr($instance['title']);
         $merged = esc_attr($instance['merged']);
@@ -125,11 +125,11 @@ class StatusNetWidget extends WP_Widget {
         $feed = fetch_feed($feeds);
         remove_filter('wp_feed_cache_transient_lifetime', array(&$this, 'get_cache_lifetime'));
         $max_items_in_feed = 0;
-        if (!is_wp_error( $rss ) ) { // Checks that the object is created correctly 
-            // Figure out how many total items there are, but limit it to $max_items*count($feeds). 
+        if (!is_wp_error( $rss ) ) { // Checks that the object is created correctly
+            // Figure out how many total items there are, but limit it to $max_items*count($feeds).
             $max_items_in_feed = $feed->get_item_quantity($max_items*count($feeds));
             // Build an array of all the items, starting with element 0 (first element).
-            $rss_items = $feed->get_items(0, $max_items_in_feed); 
+            $rss_items = $feed->get_items(0, $max_items_in_feed);
         }
 
         echo '<ul class="statusnet">';
