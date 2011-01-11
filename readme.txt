@@ -34,6 +34,7 @@ and displayed in your sidebar (with #hashtag, !group and @people links).
 = 0.2 =
 * Ohloh support by Michal Hrusecky <Michal@Hrusecky.net>
 * Initial i18n support and German translation.
+* Czech translation by Michal Hrusecky <Michal@Hrusecky.net>
 
 = 0.1 =
 * First public release.
