@@ -29,6 +29,12 @@ and displayed in your sidebar (with #hashtag, !group and @people links).
    * 'Source List' should contain one source per line
      (where source is something like http://identi.ca/evgeni or http://twitter.com/zhenech)
 
+== Screenshots ==
+
+1. StatusNet Widget in action at http://www.die-welt.net, fetching twitter.com/zhenech
+   and identi.ca/evgeni
+2. StatusNet Widget settings in the WP admin panel
+
 == Changelog ==
 
 = 0.2 =
