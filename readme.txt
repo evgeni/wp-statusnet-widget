@@ -1,7 +1,7 @@
 === StatusNet Widget ===
 Contributors: zhenech
 Donate link: https://flattr.com/thing/57411/StatusNet-Widget-for-WordPress
-Tags: twitter, identica, statusnet, widget
+Tags: twitter, identica, statusnet, widget, ohloh
 Requires at least: 2.8
 Tested up to: 3.0.4
 Stable tag: 0.1
@@ -12,7 +12,7 @@ and Ohloh (even if they are not StatusNet instances).
 
 == Description ==
 
-This widget aims to provide an easy integration of your StatusNet (identi.ca)
+This widget aims to provide an easy integration of your StatusNet (identi.ca),
 Twitter and Ohloh timelines into your WordPress.
 You can provide multiple sources (= links to your profiles at identi.ca, Twitter
 or your own StatusNet installation), which will get fetched, merged (if you want
@@ -35,6 +35,7 @@ and displayed in your sidebar (with #hashtag, !group and @people links).
 * Ohloh support by Michal Hrusecky <Michal@Hrusecky.net>
 * Initial i18n support and German translation.
 * Czech translation by Michal Hrusecky <Michal@Hrusecky.net>
+* Spanish (es_MX and es_ES) translation by Fernando C. Estrada <fcestrada@fcestrada.com>
 
 = 0.1 =
 * First public release.
