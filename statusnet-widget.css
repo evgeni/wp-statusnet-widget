@@ -1,3 +1,7 @@
 li.statusnet-item {
     margin-bottom: 10px;
 }
+
+ul.statusnet {
+	word-wrap: break-word;
+}
