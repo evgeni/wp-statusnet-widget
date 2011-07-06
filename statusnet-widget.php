@@ -170,12 +170,15 @@ class StatusNetWidget extends WP_Widget {
     function prepare_message($message) {
         $m = $message->get_title();
         $m = substr($m, strpos($m, ':')+2);
-        $link_base = preg_replace('|(http://[^/]*)/.*|', '$1', $message->get_feed()->get_link());
-        if ($link_base == 'http://twitter.com') {
+        $link = $message->get_feed()->get_link();
+        $link_base = implode('/', explode('/', $link, -1));
+        if (strpos($link_base, 'http://twitter.com') !== FALSE) {
+            $link_base='http://twitter.com';
             $search_base='http://search.twitter.com/search?q=%23';
             $group_base='';
             $user_base=$link_base;
-        } else if ($link_base == 'http://www.ohloh.net') {
+        } else if (strpos($link_base, 'http://www.ohloh.net') !== FALSE) {
+            $link_base='http://www.ohloh.net';
             $search_base='http://www.ohloh.net/p/';
             $group_base='';
             $user_base='http://www.ohloh.net/accounts';
