@@ -54,6 +54,7 @@ class StatusNetWidget extends WP_Widget {
         $instance = $old_instance;
         $instance['title'] = strip_tags($new_instance['title']);
         $instance['merged'] = strip_tags($new_instance['merged']);
+        $instance['prefer_content'] = strip_tags($new_instance['prefer_content']);
         $instance['source_list'] = strip_tags($new_instance['source_list']);
         if (ctype_digit($new_instance['max_items'])) $instance['max_items'] = $new_instance['max_items'];
         else $instance['max_items'] = 10;
@@ -64,9 +65,10 @@ class StatusNetWidget extends WP_Widget {
 
     /** @see WP_Widget::form */
     function form($instance) {
-        $instance = wp_parse_args( (array) $instance, array( 'merged' => '1', 'title' => '', 'source_list' => '', 'max_items' => 10, 'cache_lifetime' => 30) );
+        $instance = wp_parse_args( (array) $instance, array( 'merged' => '1', 'prefer_content' => 0, 'title' => '', 'source_list' => '', 'max_items' => 10, 'cache_lifetime' => 30) );
         $title = esc_attr($instance['title']);
         $merged = esc_attr($instance['merged']);
+        $prefer_content = esc_attr($instance['prefer_content']);
         $max_items = esc_attr($instance['max_items']);
         $source_list = esc_attr($instance['source_list']);
         $cache_lifetime = esc_attr($instance['cache_lifetime']);
@@ -79,6 +81,11 @@ class StatusNetWidget extends WP_Widget {
             <p>
                <label for="<?php echo $this->get_field_id('merged'); ?>"><?php _e('Merge Mode:', 'statusnet-widget'); ?>
                  <input class="widefat" id="<?php echo $this->get_field_id('merged'); ?>" name="<?php echo $this->get_field_name('merged'); ?>" type="checkbox" value="1" <?php checked('1', $merged); ?> />
+               </label>
+            </p>
+            <p>
+               <label for="<?php echo $this->get_field_id('prefer_content'); ?>"><?php _e('Prefer Content:', 'statusnet-widget'); ?>
+                 <input class="widefat" id="<?php echo $this->get_field_id('prefer_content'); ?>" name="<?php echo $this->get_field_name('prefer_content'); ?>" type="checkbox" value="1" <?php checked('1', $prefer_content); ?> />
                </label>
             </p>
             <p>
@@ -103,6 +110,7 @@ class StatusNetWidget extends WP_Widget {
         include_once(ABSPATH . WPINC . '/feed.php');
 
         $merged = esc_attr($instance['merged']);
+        $prefer_content = esc_attr($instance['prefer_content']);
         $max_items = esc_attr($instance['max_items']);
         $source_list = esc_attr($instance['source_list']);
         $cache_lifetime = esc_attr($instance['cache_lifetime']);
@@ -158,7 +166,7 @@ class StatusNetWidget extends WP_Widget {
             $i = 0;
             foreach ( $rss_items as $message ) {
                 if ($i < $max_items) {
-                    echo '<li class="statusnet-item">'.$this->prepare_message($message).'</li>';
+                    echo '<li class="statusnet-item">'.$this->prepare_message($message, $prefer_content).'</li>';
                     $i++;
                 }
             }
@@ -167,9 +175,7 @@ class StatusNetWidget extends WP_Widget {
         echo '</ul>';
     }
 
-    function prepare_message($message) {
-        $m = $message->get_title();
-        $m = substr($m, strpos($m, ':')+2);
+    function prepare_message($message, $prefer_content) {
         $link = $message->get_feed()->get_link();
         $link_base = implode('/', explode('/', $link, -1));
         if (strpos($link_base, 'http://twitter.com') !== FALSE) {
@@ -177,16 +183,29 @@ class StatusNetWidget extends WP_Widget {
             $search_base='http://search.twitter.com/search?q=%23';
             $group_base='';
             $user_base=$link_base;
+            $prefer_content = 0; // Twitter's RSS feed does not contain markup
+            $m = $message->get_title();
+            $m = substr($m, strpos($m, ':')+2);
         } else if (strpos($link_base, 'http://www.ohloh.net') !== FALSE) {
             $link_base='http://www.ohloh.net';
             $search_base='http://www.ohloh.net/p/';
             $group_base='';
             $user_base='http://www.ohloh.net/accounts';
-            $m = $message->get_title();
+            if ($prefer_content)
+                $m = $message->get_content();
+            else
+                $m = $message->get_title();
         } else {
             $search_base=$link_base.'/tag/';
             $group_base=$link_base.'/group/';
             $user_base=$link_base;
+            if ($prefer_content)
+                $m = $message->get_content();
+            else {
+                $m = $message->get_title();
+                $m = substr($m, strpos($m, ':')+2);
+            }
+
         }
 
         $time = $message->get_date('U');
@@ -196,10 +215,12 @@ class StatusNetWidget extends WP_Widget {
             $h_time = date(__('Y/m/d', 'statusnet-widget'), $time);
         }
 
-        $m = preg_replace('/(http:\/\/[\S]+)/', '<a href="\1">\1</a>', $m);
-        $m = preg_replace('/(^|[^\w\d]+)@([\w\d_-]+)/', '\1<a href="'.$user_base.'/\2">@\2</a>', $m);
-        $m = preg_replace('/(^|[^\w\d]+)#([^\s.,!?]+)/', '\1<a href="'.$search_base.'\2">#\2</a>', $m);
-        if ($group_base) $m = preg_replace('/(^|[^\w\d]+)!([^\s.,!?]+)/', '\1<a href="'.$group_base.'\2">!\2</a>', $m);
+        if (!$prefer_content) {
+            $m = preg_replace('/(http:\/\/[\S]+)/', '<a href="\1">\1</a>', $m);
+            $m = preg_replace('/(^|[^\w\d]+)@([\w\d_-]+)/', '\1<a href="'.$user_base.'/\2">@\2</a>', $m);
+            $m = preg_replace('/(^|[^\w\d]+)#([^\s.,!?]+)/', '\1<a href="'.$search_base.'\2">#\2</a>', $m);
+            if ($group_base) $m = preg_replace('/(^|[^\w\d]+)!([^\s.,!?]+)/', '\1<a href="'.$group_base.'\2">!\2</a>', $m);
+        }
 
         $final = $m;
         $final .= ' <span class="statusnet-timestamp"><abbr title="'.date(__('Y/m/d H:i:s', 'statusnet-widget'), $time).'">';
