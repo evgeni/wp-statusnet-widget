@@ -124,6 +124,8 @@ class StatusNetWidget extends WP_Widget {
           $source = trim($source);
           if(stripos($source, 'http://twitter.com/') !== false)
               $feeds[] = 'http://twitter.com/statuses/user_timeline/'.str_replace('/', '', str_ireplace('http://twitter.com/', '', $source)).'.rss';
+          if(stripos($source, 'http://search.twitter.com/') !== false)
+              $feeds[] = 'http://search.twitter.com/search.atom?q='.urlencode(str_replace('/', '', str_ireplace('http://search.twitter.com/', '', $source)));
           else if(stripos($source, 'http://www.ohloh.net/') !== false)
               $feeds[] = $source . '/messages.rss';
           else
@@ -186,6 +188,16 @@ class StatusNetWidget extends WP_Widget {
             $prefer_content = 0; // Twitter's RSS feed does not contain markup
             $m = $message->get_title();
             $m = substr($m, strpos($m, ':')+2);
+        } else if (strpos($link_base, 'http://search.twitter.com') !== FALSE) {
+            $link_base='http://twitter.com';
+            $search_base='http://search.twitter.com/search?q=%23';
+            $group_base='';
+            $user_base=$link_base;
+            $author = str_ireplace('http://twitter.com/', '', $message->get_author()->get_link());
+            if ($prefer_content)
+                $m = '<a href="'.$link_base.'/'.$author.'">'.$author.'</a>: '.$message->get_content();
+            else
+                $m = $author.': '.$message->get_title();
         } else if (strpos($link_base, 'http://www.ohloh.net') !== FALSE) {
             $link_base='http://www.ohloh.net';
             $search_base='http://www.ohloh.net/p/';
