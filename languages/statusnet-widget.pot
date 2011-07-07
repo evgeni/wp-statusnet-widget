@@ -12,39 +12,44 @@ msgstr ""
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 
-#: statusnet-widget.php:74
+#: statusnet-widget.php:77
 msgid "Title:"
 msgstr ""
 
-#: statusnet-widget.php:79
+#: statusnet-widget.php:82
 msgid "Merge Mode:"
 msgstr ""
 
-#: statusnet-widget.php:84
+#: statusnet-widget.php:87
+msgid "Prefer content with markup:"
+msgstr ""
+
+#: statusnet-widget.php:92
 msgid "Max Items:"
 msgstr ""
 
-#: statusnet-widget.php:89
+#: statusnet-widget.php:97
 msgid "Cache Lifetime (minutes):"
 msgstr ""
 
-#: statusnet-widget.php:94
+#: statusnet-widget.php:102
 msgid "Source List:"
 msgstr ""
 
-#: statusnet-widget.php:137
+#: statusnet-widget.php:148
 msgid "No public messages."
 msgstr ""
 
-#: statusnet-widget.php:187
+#: statusnet-widget.php:225
+#, php-format
 msgid "%s ago"
 msgstr ""
 
-#: statusnet-widget.php:189
+#: statusnet-widget.php:227
 msgid "Y/m/d"
 msgstr ""
 
-#: statusnet-widget.php:198
+#: statusnet-widget.php:238
 msgid "Y/m/d H:i:s"
 msgstr ""
 

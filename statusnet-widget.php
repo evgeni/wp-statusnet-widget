@@ -84,7 +84,7 @@ class StatusNetWidget extends WP_Widget {
                </label>
             </p>
             <p>
-               <label for="<?php echo $this->get_field_id('prefer_content'); ?>"><?php _e('Prefer Content:', 'statusnet-widget'); ?>
+               <label for="<?php echo $this->get_field_id('prefer_content'); ?>"><?php _e('Prefer content with markup:', 'statusnet-widget'); ?>
                  <input class="widefat" id="<?php echo $this->get_field_id('prefer_content'); ?>" name="<?php echo $this->get_field_name('prefer_content'); ?>" type="checkbox" value="1" <?php checked('1', $prefer_content); ?> />
                </label>
             </p>
