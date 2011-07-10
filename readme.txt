@@ -42,8 +42,12 @@ Add http://search.twitter.com/#debian as a source.
 = How do I fetch a user/project from Ohloh? =
 Add https://www.ohloh.net/accounts/EvgeniGolov or http://www.ohloh.net/p/debian as a source.
 
-= Why is 'Prefer content with markup' disabled by default? =
-I for myself do not like the idea of displaying markup from a remote/unknown/untrusted source in my site. In theory Twitter and co could inject any markup (incl JavaScript!) into my site.
+= What is 'Prefer content with markup'? =
+When this is checked, arbitrary markup is parsed from the source. I personally do not like the idea of displaying markup from a remote/unknown/untrusted source in my site. In theory Twitter and co could inject any markup (incl JavaScript!) into my site.
+
+However, in certain setups, such as StatusNet's federation, this will fix username links when replying to people across instances (i.e. from a personal StatusNet site to indenti.ca).
+
+Consider the risks, and decided if this works for you.
 
 == Screenshots ==
 
