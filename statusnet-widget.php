@@ -263,11 +263,12 @@ add_action('wp_print_styles', 'add_statusnet_stylesheet');
  */
 
 function add_statusnet_stylesheet() {
-    $statusnet_style_url  = WP_PLUGIN_URL . '/wp-statusnet-widget/statusnet-widget.css';
-    $statusnet_style_file = WP_PLUGIN_DIR . '/wp-statusnet-widget/statusnet-widget.css';
+    $stylesheet = 'statusnet-widget.css';
+    $statusnet_style_url  = plugins_url($stylesheet, __FILE__);
+    $statusnet_style_file = dirname(__FILE__) . '/' . $stylesheet;
     if ( file_exists($statusnet_style_file) ) {
         wp_register_style('statusnet-widget-style', $statusnet_style_url);
-        wp_enqueue_style( 'statusnet-widget-style');
+        wp_enqueue_style('statusnet-widget-style');
     }
 }
 
