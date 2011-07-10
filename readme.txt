@@ -4,7 +4,7 @@ Donate link: https://flattr.com/thing/57411/StatusNet-Widget-for-WordPress
 Tags: twitter, identica, statusnet, widget, ohloh
 Requires at least: 2.8
 Tested up to: 3.2
-Stable tag: 0.2
+Stable tag: 0.3
 
 StatusNet Widget provides a widget to pull your status from StatusNet
 sites like identi.ca. Multiple sources are supported, so is Twitter
