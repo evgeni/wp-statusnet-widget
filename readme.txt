@@ -57,6 +57,9 @@ Consider the risks, and decided if this works for you.
 
 == Changelog ==
 
+= 0.x =
+* fix stylesheet loading
+
 = 0.3 =
 * search.twitter.com support, via http://search.twitter.com/what_to_search
 * ability do display StatusNet/Twitter/etc markup instead of parsing messages ourself
