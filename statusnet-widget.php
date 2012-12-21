@@ -128,8 +128,11 @@ class StatusNetWidget extends WP_Widget {
               $feeds[] = 'http://search.twitter.com/search.atom?q='.urlencode(str_replace('/', '', str_ireplace('http://search.twitter.com/', '', $source)));
           else if(stripos($source, 'http://www.ohloh.net/') !== false)
               $feeds[] = $source . '/messages.rss';
-          else
+          else {
+              if ($source[strlen($source)-1] == '/')
+                  $source = substr($source, 0, -1);
               $feeds[] = $source.'/rss';
+          }
         }
         add_filter('wp_feed_cache_transient_lifetime', array(&$this, 'get_cache_lifetime'));
         $feed = fetch_feed($feeds);
