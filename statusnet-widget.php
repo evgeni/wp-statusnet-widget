@@ -128,14 +128,17 @@ class StatusNetWidget extends WP_Widget {
               $feeds[] = 'http://search.twitter.com/search.atom?q='.urlencode(str_replace('/', '', str_ireplace('http://search.twitter.com/', '', $source)));
           else if(stripos($source, 'http://www.ohloh.net/') !== false)
               $feeds[] = $source . '/messages.rss';
-          else
+          else {
+              if ($source[strlen($source)-1] == '/')
+                  $source = substr($source, 0, -1);
               $feeds[] = $source.'/rss';
+          }
         }
         add_filter('wp_feed_cache_transient_lifetime', array(&$this, 'get_cache_lifetime'));
         $feed = fetch_feed($feeds);
         remove_filter('wp_feed_cache_transient_lifetime', array(&$this, 'get_cache_lifetime'));
         $max_items_in_feed = 0;
-        if (!is_wp_error( $rss ) ) { // Checks that the object is created correctly
+        if (!($feed instanceof WP_Error) && (!is_wp_error( $rss ))) { // Checks that the object is created correctly
             // Figure out how many total items there are, but limit it to $max_items*count($feeds).
             $max_items_in_feed = $feed->get_item_quantity($max_items*count($feeds));
             // Build an array of all the items, starting with element 0 (first element).
