@@ -3,8 +3,8 @@ Contributors: zhenech
 Donate link: https://flattr.com/thing/57411/StatusNet-Widget-for-WordPress
 Tags: twitter, identica, statusnet, widget, ohloh
 Requires at least: 2.8
-Tested up to: 3.2
-Stable tag: 0.3
+Tested up to: 3.5
+Stable tag: 0.4
 
 StatusNet Widget provides a widget to pull your status from StatusNet
 sites like identi.ca. Multiple sources are supported, so is Twitter
@@ -57,8 +57,10 @@ Consider the risks, and decided if this works for you.
 
 == Changelog ==
 
-= 0.x =
+= 0.4 =
 * fix stylesheet loading
+* fix catching errors from SimplePie
+* strip trailing slashes from source urls, new SimplePie is bitchy about them. thanks to http://github.com/boltronics
 
 = 0.3 =
 * search.twitter.com support, via http://search.twitter.com/what_to_search
