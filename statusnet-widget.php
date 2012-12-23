@@ -3,7 +3,7 @@
 Plugin Name: StatusNet Widget
 Plugin URI: http://github.com/evgeni/wp-statusnet-widget
 Description: A Widget for StatusNet
-Version: 0.3
+Version: 0.4.1
 Author: Evgeni Golov
 Author URI: http://www.die-welt.net
 License: GPL2
