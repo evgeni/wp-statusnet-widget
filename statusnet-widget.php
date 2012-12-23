@@ -122,6 +122,7 @@ class StatusNetWidget extends WP_Widget {
         foreach($source_list as $key=>$source) {
           $orig_source = $source;
           $source = trim($source);
+          $source = rtrim($source, '/');
           if(stripos($source, 'http://twitter.com/') !== false)
               $feeds[] = 'http://twitter.com/statuses/user_timeline/'.str_replace('/', '', str_ireplace('http://twitter.com/', '', $source)).'.rss';
           if(stripos($source, 'http://search.twitter.com/') !== false)
