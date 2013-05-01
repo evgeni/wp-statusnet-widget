@@ -1,21 +1,21 @@
 === StatusNet Widget ===
 Contributors: zhenech
 Donate link: https://flattr.com/thing/57411/StatusNet-Widget-for-WordPress
-Tags: identica, statusnet, widget, ohloh
+Tags: identica, statusnet, widget
 Requires at least: 2.8
 Tested up to: 3.5
 Stable tag: 0.4.1
 
 StatusNet Widget provides a widget to pull your status from StatusNet
-sites like identi.ca. Multiple sources are supported, so is Ohloh.
+sites like identi.ca. Multiple sources are supported.
 
 == Description ==
 
 This widget aims to provide an easy integration of your StatusNet (identi.ca)
-and Ohloh timelines into your WordPress.
+timelines into your WordPress.
 It can also be used to display timelines for tags or groups.
-You can provide multiple sources (= links to your profiles at identi.ca, Ohloh
-or your own StatusNet installation), which will get fetched, merged (if you want
+You can provide multiple sources (= links to your profiles at identi.ca or your
+own StatusNet installation), which will get fetched, merged (if you want
 it to do so, like when you are posting the same content to multiple StatusNet
 sites) and displayed in your sidebar (with #hashtag, !group and @people links).
 
@@ -34,9 +34,6 @@ sites) and displayed in your sidebar (with #hashtag, !group and @people links).
 
 = How do I fetch a #tag/!group from identi.ca (StatusNet)? =
 Add http://identi.ca/tag/debian or http://identi.ca/group/debian as a source.
-
-= How do I fetch a user/project from Ohloh? =
-Add https://www.ohloh.net/accounts/EvgeniGolov or http://www.ohloh.net/p/debian as a source.
 
 = What is 'Prefer content with markup'? =
 When this is checked, arbitrary markup is parsed from the source. I personally do not like the idea of displaying markup from a remote/unknown/untrusted source in my site. In theory StatusNet and co could inject any markup (incl JavaScript!) into my site.

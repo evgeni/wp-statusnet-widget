@@ -123,9 +123,7 @@ class StatusNetWidget extends WP_Widget {
           $orig_source = $source;
           $source = trim($source);
           $source = rtrim($source, '/');
-          if(stripos($source, 'http://www.ohloh.net/') !== false)
-              $feeds[] = $source . '/messages.rss';
-          else if (stripos($source, '//twitter.com/') === false && stripos($source, '//search.twitter.com/') === false)
+          if (stripos($source, '//twitter.com/') === false && stripos($source, '//search.twitter.com/') === false && stripos($source, '//www.ohloh.net/') === false)
               $feeds[] = $source.'/rss';
         }
         add_filter('wp_feed_cache_transient_lifetime', array(&$this, 'get_cache_lifetime'));
@@ -177,16 +175,6 @@ class StatusNetWidget extends WP_Widget {
     function prepare_message($message, $prefer_content) {
         $link = $message->get_feed()->get_link();
         $link_base = implode('/', explode('/', $link, -1));
-        if (strpos($link_base, 'http://www.ohloh.net') !== FALSE) {
-            $link_base='http://www.ohloh.net';
-            $search_base='http://www.ohloh.net/p/';
-            $group_base='';
-            $user_base='http://www.ohloh.net/accounts';
-            if ($prefer_content)
-                $m = $message->get_content();
-            else
-                $m = $message->get_title();
-        } else {
             $search_base=$link_base.'/tag/';
             $group_base=$link_base.'/group/';
             $user_base=$link_base;
@@ -196,8 +184,6 @@ class StatusNetWidget extends WP_Widget {
                 $m = $message->get_title();
                 $m = substr($m, strpos($m, ':')+2);
             }
-
-        }
 
         $time = $message->get_date('U');
         if ((abs(time() - $time)) < 86400) {
