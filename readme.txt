@@ -3,8 +3,8 @@ Contributors: zhenech
 Donate link: https://flattr.com/thing/57411/StatusNet-Widget-for-WordPress
 Tags: identica, statusnet, widget
 Requires at least: 2.8
-Tested up to: 3.5
-Stable tag: 0.4.1
+Tested up to: 3.5.1
+Stable tag: 0.5
 
 StatusNet Widget provides a widget to pull your status from StatusNet
 sites like identi.ca. Multiple sources are supported.
@@ -48,6 +48,11 @@ Consider the risks, and decided if this works for you.
 2. StatusNet Widget settings in the WP admin panel
 
 == Changelog ==
+
+= 0.5 =
+* dropped Twitter support
+* dropped Ohloh support
+* added a band-aid for SimplePie not to fuck up when an empty ('') line is passed as a source.
 
 = 0.4 =
 * fix stylesheet loading
