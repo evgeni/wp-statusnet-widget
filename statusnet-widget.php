@@ -55,7 +55,7 @@ class StatusNetWidget extends WP_Widget {
         $instance['title'] = strip_tags($new_instance['title']);
         $instance['merged'] = strip_tags($new_instance['merged']);
         $instance['prefer_content'] = strip_tags($new_instance['prefer_content']);
-        $instance['source_list'] = strip_tags($new_instance['source_list']);
+        $instance['source_list'] = trim(strip_tags($new_instance['source_list']));
         if (ctype_digit($new_instance['max_items'])) $instance['max_items'] = $new_instance['max_items'];
         else $instance['max_items'] = 10;
         if (ctype_digit($new_instance['cache_lifetime'])) $instance['cache_lifetime'] = $new_instance['cache_lifetime'];
@@ -112,7 +112,7 @@ class StatusNetWidget extends WP_Widget {
         $merged = esc_attr($instance['merged']);
         $prefer_content = esc_attr($instance['prefer_content']);
         $max_items = esc_attr($instance['max_items']);
-        $source_list = esc_attr($instance['source_list']);
+        $source_list = trim(esc_attr($instance['source_list']));
         $cache_lifetime = esc_attr($instance['cache_lifetime']);
 
         $source_list = explode("\n", $source_list);
